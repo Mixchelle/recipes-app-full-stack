@@ -1,0 +1,4 @@
+.text-decoration-dashed {
+  text-decoration: line-through solid black;
+  transition: none;
+}

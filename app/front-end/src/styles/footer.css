@@ -1,0 +1,17 @@
+.footer-container {
+  box-shadow: 0 -3px 5px rgba(0, 0, 0, 0.32);
+}
+
+.justify {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* @media only screen and ( min-width : 768px ) {
+
+  .footer-container {
+    margin: auto;
+    max-width: 768px;
+  }
+} */
