@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+const PAGE_URL = 'https://localhost:3001';
+
 export default function useFetch() {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -14,20 +16,20 @@ export default function useFetch() {
   const fetchData = async (pageName, radioOption, input) => {
     setIsLoading(true);
     let url;
-    const urlType = `https://www.the${pageName}db.com/api/json/v1/1/`;
+    const urlType = `${PAGE_URL}/${pageName}`;
 
     switch (radioOption) {
     case 'ingredient':
-      url = `${urlType}filter.php?i=${input}`;
+      url = `${urlType}/ingredients?q=${input}`;
       break;
     case 'name':
-      url = `${urlType}search.php?s=${input}`;
+      url = `${urlType}/name?q=${input}`;
       break;
     case 'first-letter':
-      url = `${urlType}search.php?f=${input}`;
+      url = `${urlType}/letter?q=${input}`;
       break;
     case 'category':
-      url = `${urlType}filter.php?c=${input}`;
+      url = `${urlType}/category?q=${input}`;
       break;
     default:
       url = '';
@@ -38,13 +40,13 @@ export default function useFetch() {
     return fetchAPI(url);
   };
 
-  const fetchCategories = (pageName) => fetchAPI(`https://www.the${pageName}db.com/api/json/v1/1/list.php?c=list`);
+  const fetchCategories = (pageName) => fetchAPI(`${PAGE_URL}/${pageName}/categories`);
 
   const fetchRecipe = async (pageName, id) => {
     try {
       setIsLoading(true);
 
-      const url = `https://www.the${pageName}db.com/api/json/v1/1/lookup.php?i=${id}`;
+      const url = `${PAGE_URL}/${pageName}/${id}`;
 
       const response = await fetch(url);
       const json = await response.json();
