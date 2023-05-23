@@ -6,8 +6,6 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
-    depends_on:
-      - backend
   backend:
     container_name: app_backend
     build: ./back-end
