@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const PAGE_URL = 'https://localhost:3001';
+const PAGE_URL = 'localhost:3001';
 
 export default function useFetch() {
   const [isLoading, setIsLoading] = useState(false);
