@@ -7,12 +7,11 @@ export interface Recipe {
   category: string;
 }
 
-
 const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
 async function getAllRecipes() {
   const response = await fetch(url + 'search.php?s=');
-  const data  = await response.json();
+  const data = await response.json();
   return data;
 }
 
