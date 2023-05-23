@@ -1,17 +1,20 @@
 import Model, { Recipe } from '../models/searchModel';
 
- async function getAllRecipes(): Promise<Recipe[]> {
+ async function getAllRecipes() {
   const result = await Model.getAllRecipes()
+  if(!result) return { message: 'Erro ao carregar a api'}
   return result;
 }
 
- async function getRecipeByName(name: string): Promise<Recipe[]> {
+ async function getRecipeByName(name: string) {
 const result = await Model.getRecipeByName(name);
+if(!result) return { message: 'Erro ao carregar a api'}
 return result;
 }
 
-async function getRecipesByFirstLetter(letter: string): Promise<Recipe[]> {
+async function getRecipesByFirstLetter(letter: string){
   const result = await Model.getRecipesByFirstLetter(letter);
+  if(!result) return { message: 'Erro ao carregar a api'}
   return result;
 }
 

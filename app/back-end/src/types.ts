@@ -1,0 +1,1 @@
+export type EndpointRequest = '/meals' | '/drinks';

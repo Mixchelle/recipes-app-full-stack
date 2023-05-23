@@ -1,30 +1,31 @@
-import Connection from "../database/connection";
+import fetch from 'node-fetch';
 
 export interface Recipe {
   id: number;
   name: string;
-  ingredientes: string;
-  categoria: string;
+  ingredients: string;
+  category: string;
 }
 
- async function getAllRecipes(): Promise<Recipe[]> {
-  const db = await Connection.execute(); 
-  const result = await db.query('SELECT * FROM RECIPES_APP');
-  return result.rows;
+
+const url = 'https://www.thecocktaildb.com/api/json/v1/1/';
+
+async function getAllRecipes() {
+  const response = await fetch(url + 'search.php?s=');
+  const data  = await response.json();
+  return data;
 }
 
- async function getRecipeByName(name: string): Promise<Recipe[]> {
-  const db = await Connection.execute();
-  const result = await db.query('SELECT * FROM RECIPES_APP WHERE name = $1', [name]);
-  return result.rows;
+async function getRecipeByName(name: string) {
+  const response = await fetch(url + 'search.php?s=' + name);
+  const data = await response.json();
+  return data;
 }
 
-async function getRecipesByFirstLetter(letter: string): Promise<Recipe[]> {
-  const db = await Connection.execut();
-  const result = await db.query('SELECT * FROM RECIPES_APP WHERE name ILIKE $1', [`${letter}%`]);
-  return result.rows;
+async function getRecipesByFirstLetter(letter: string) {
+  const response = await fetch(url + 'search.php?f=' + letter);
+  const data = await response.json();
+  return data;
 }
 
 export default { getAllRecipes, getRecipeByName, getRecipesByFirstLetter };
-
-

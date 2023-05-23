@@ -1,4 +1,6 @@
 build
 node_modules
+coverage
+cypress
 .env
 .env.example
