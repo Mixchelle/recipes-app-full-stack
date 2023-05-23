@@ -43,8 +43,8 @@ INSERT INTO `drinks_ingredients` (`name`)  VALUES
   ("Ale"),("Chocolate liqueur"),("Midori melon liqueur"),("Sambuca"),("Cider"),
   ("Sprite"),("7-Up"),("Blackberry brandy"),("Peppermint schnapps"),("Creme de Cassis"), 
   ("Grand Marnier"), ("Wild Turkey"), ("Frangelico"), ("Egg White"), ("Orange juice"), ("Pepsi Cola"),
-  ("Peach schnapps"), ("Coca-Cola"), ("Sweet and sour"), ("Vanilla vodka"), ("Blue Curacao")
-  ("Blueberry schnapps"), ("Sour mix"), ("Coconut rum"), ("Ginger beer"), ("Lemon peel")
+  ("Peach schnapps"), ("Coca-Cola"), ("Sweet and sour"), ("Vanilla vodka"), ("Blue Curacao"),
+  ("Blueberry schnapps"), ("Sour mix"), ("Coconut rum"), ("Ginger beer"), ("Lemon peel"),
   ("Kirschwasser"), ("Strawberry liqueur"), ("Schweppes Russchian"), ("Roses sweetened lime juice"),
   ("Orange Curacao"), ("Ice"), ("Maraschino cherry"), ("White Creme de Menthe"), ("Hot chocolate"),
   ("Angostura Bitters"), ("Soda water"), ("Malibu rum"), ("Cointreau"), ("Coconut liqueur"), ("Vanilla ice-cream"), 
@@ -288,7 +288,7 @@ INSERT INTO `recipes_ingredients` (`recipe_id`, `ingredient_id`, `measurement`) 
 (37, 51, '1/2 lb frozen'),
 (37, 134, '1 frozen'),
 (37, 46, '2 cups fresh'),
-(38, 22, 'cubes'),
+(38, 122, 'cubes'),
 (38, 52, NULL),
 (38, 34, NULL),
 (38, 22, NULL),
@@ -399,7 +399,7 @@ INSERT INTO `recipes_ingredients` (`recipe_id`, `ingredient_id`, `measurement`) 
 (62, 154, '1/2 tsp'),
 (62, 50, '12 oz'),
 (63, 50, '2 cups'),
-(63, 63, '4 oz chopped bittersweet or semi-sweet');
+(63, 63, '4 oz chopped bittersweet or semi-sweet'),
 (63, 158, '3 2-inch strips'),
 (63, 71, '1/2 tsp instant'),
 (63, 159, '1/8 tsp ground'),
