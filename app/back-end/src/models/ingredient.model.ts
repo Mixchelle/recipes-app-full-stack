@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
-
-type ApiUrlType = 'meal' | 'cocktail';
+import { ApiUrlType } from '../types';
 
 const getAll = async (endpoint: ApiUrlType) => {
   try {
