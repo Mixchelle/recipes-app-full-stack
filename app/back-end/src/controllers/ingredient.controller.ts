@@ -8,12 +8,12 @@ const getIngredients = async (req: Request, res: Response) => {
   if(query) {
     const response = await IngredientService.getByIngredient(url as EndpointRequest, query as string);
     if(!response) return res.status(400).json({ message: 'Some error' });
-    return res.status(200).json({ message: response });
+    return res.status(200).json(response);
   } 
 
   const response = await IngredientService.getAll(url as EndpointRequest);
   if(!response) return res.status(400).json({ message: 'Some error' });
-  return res.status(200).json({ message: response });
+  return res.status(200).json(response);
 }
 
 export {getIngredients}
