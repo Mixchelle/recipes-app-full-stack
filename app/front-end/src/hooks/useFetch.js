@@ -20,16 +20,16 @@ export default function useFetch() {
 
     switch (radioOption) {
     case 'ingredient':
-      url = `${urlType}/ingredients?q=${input}`;
+      url = `${urlType}s/ingredients?q=${input}`;
       break;
     case 'name':
-      url = `${urlType}/name?q=${input}`;
+      url = `${urlType}s/name?q=${input}`;
       break;
     case 'first-letter':
-      url = `${urlType}/letter?q=${input}`;
+      url = `${urlType}s/letter?q=${input}`;
       break;
     case 'category':
-      url = `${urlType}/category?q=${input}`;
+      url = `${urlType}s/category?q=${input}`;
       break;
     default:
       url = '';
