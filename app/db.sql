@@ -410,6 +410,7 @@ INSERT INTO `recipes_ingredients` (`recipe_id`, `ingredient_id`, `measurement`) 
 
 -- MEALS
 
+DROP TABLE IF EXISTS `meals_categories`;
 CREATE TABLE `meals_categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -420,7 +421,6 @@ INSERT INTO `meals_categories` (`name`)  VALUES
   ("Side"), ("Seafood"), ("Beef"), ("Vegetarian"), ("Pasta");
 
 DROP TABLE IF EXISTS `meals_recipes`;
-
 CREATE TABLE `meals_recipes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -447,13 +447,11 @@ CREATE TABLE `meals_ingredients` (
 );
 
 INSERT INTO `meals_ingredients` (`name`)  VALUES
-  ("Lentils"),("Onion"),("Carrots"),("Tomato Puree"),("Cumin"), -- [01, 03, 04, 05] - Corba, Bistek(Onion), Tamiya(Cumin), Lasanha(Onion, Carrots, Tomate)
-  ("Sushi Rice"),("Rice wine"),("Caster Sugar"),("Mayonnaise"),("Cucumber"), -- [02] - Sushi
-  ("Beef"),("Soy Sauce"),("Lemon"),("Garlic"), ("Salt"), -- [03, 05] - Bistek, Lasanha(Garlic)
-  ("Broad Beans"),("Spring Onions"),("Garlic Clove"),("Parsley"), ("Flour"), -- [04] - Tamiya
-  ("Olive Oil"),("Bacon"),("Celery"),("Minced Beef"), ("Mozzarella "); -- [05] - Lasagne
-
-
+  ("Lentils"),("Onion"),("Carrots"),("Tomato Puree"),("Cumin"),
+  ("Sushi Rice"),("Rice wine"),("Caster Sugar"),("Mayonnaise"),("Cucumber"),
+  ("Beef"),("Soy Sauce"),("Lemon"),("Garlic"), ("Salt"),
+  ("Broad Beans"),("Spring Onions"),("Garlic Clove"),("Parsley"), ("Flour"),
+  ("Olive Oil"),("Bacon"),("Celery"),("Minced Beef"), ("Mozzarella ");
 
 DROP TABLE IF EXISTS `meals_recipes_ingredients`;
 CREATE TABLE `meals_recipes_ingredients` (
