@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/mocha": "^10.0.1",
     "@types/node": "^20.2.3",
     "@types/node-fetch": "^2.6.4",
     "ts-node": "^10.9.1",

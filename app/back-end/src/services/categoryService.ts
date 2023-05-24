@@ -1,8 +1,13 @@
-import categoryModel from "../models/categoryModel";
+import categoryModel from "../models/category.model";
 
 const getAllCategories = async () => {
-  const categories = await categoryModel.getAllCategories;
+  const categories = await categoryModel.getAllCategories();
   return categories;
 };
 
-export default { getAllCategories }
+const getByCategory = async (q: string) => {
+  const category = await categoryModel.getByCategory(q);
+  return category;
+};
+
+export default { getAllCategories, getByCategory }
