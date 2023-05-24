@@ -407,3 +407,91 @@ INSERT INTO `recipes_ingredients` (`recipe_id`, `ingredient_id`, `measurement`) 
 (64, 63, '2 oz sweet'),
 (64, 150, '1/2 tsp'),
 (64, 79, '2 beaten');
+
+-- MEALS
+
+DROP TABLE IF EXISTS `meals_categories`;
+CREATE TABLE `meals_categories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `meals_categories` (`name`)  VALUES
+  ("Side"), ("Seafood"), ("Beef"), ("Vegetarian"), ("Pasta");
+
+DROP TABLE IF EXISTS `meals_recipes`;
+CREATE TABLE `meals_recipes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_id` int NOT NULL,
+  `instructions` varchar(655),
+  `image` varchar(255) NOT NULL,
+  `video` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`category_id`) REFERENCES `meals_categories` (`id`)
+);
+
+INSERT INTO `meals_recipes` (`name`, `category_id`, `instructions`, `image`, `video`)  VALUES 
+  ("Corba", 1, "Pick through your lentils for any foreign debris, rinse them 2 or 3 times, drain, and set aside", "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg", "https://www.youtube.com/watch?v=VVnZd8A84z4"),
+  ("Sushi", 2, "Get a small square of cling film and place a topping, like half a prawn or a small piece of smoked salmon, on it. Use damp hands to roll walnut-sized balls of rice and place on the topping", "https://www.themealdb.com/images/media/meals/g046bb1663960946.jpg", "https://www.youtube.com/watch?v=ub68OxEypaY"),
+  ("Bistek", 3, "Marinate beef in soy sauce, lemon (or calamansi), and ground black pepper for at least 1 hour. Note: marinate overnight for best result", "https://www.themealdb.com/images/media/meals/4pqimk1683207418.jpg", "https://www.youtube.com/watch?v=xOQON5_S7as"),
+  ("Tamiya", 4, "oak the beans in water to cover overnight.Drain. If skinless beans are unavailable, rub to loosen the skins, then discard the skins. Pat the beans dry with a towel", "https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg", "https://www.youtube.com/watch?v=mulqW-J3Yy4"),
+  ("Lasagne", 5, "Heat the oil in a large saucepan. Use kitchen scissors to snip the bacon into small pieces, or use a sharp knife to chop it on a chopping board", "https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg", "https://www.youtube.com/watch?v=gfhfsBPt46s");
+ 
+DROP TABLE IF EXISTS `meals_ingredients`;
+CREATE TABLE `meals_ingredients` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `meals_ingredients` (`name`)  VALUES
+  ("Lentils"),("Onion"),("Carrots"),("Tomato Puree"),("Cumin"),
+  ("Sushi Rice"),("Rice wine"),("Caster Sugar"),("Mayonnaise"),("Cucumber"),
+  ("Beef"),("Soy Sauce"),("Lemon"),("Garlic"), ("Salt"),
+  ("Broad Beans"),("Spring Onions"),("Garlic Clove"),("Parsley"), ("Flour"),
+  ("Olive Oil"),("Bacon"),("Celery"),("Minced Beef"), ("Mozzarella ");
+
+DROP TABLE IF EXISTS `meals_recipes_ingredients`;
+CREATE TABLE `meals_recipes_ingredients` (
+  `recipe_id` INT NOT NULL,
+  `ingredient_id` INT NOT NULL,
+  `measurement` VARCHAR(255),
+  PRIMARY KEY (`recipe_id`, `ingredient_id`),
+  FOREIGN KEY (`recipe_id`) REFERENCES `meals_recipes` (`id`),
+  FOREIGN KEY (`ingredient_id`) REFERENCES `meals_ingredients` (`id`)
+);
+
+INSERT INTO `meals_recipes_ingredients` (`recipe_id`, `ingredient_id`, `measurement`) VALUES
+(1, 1, "1 cup"),
+(1, 2, "1 large"),
+(1, 3, "1 large"),
+(1, 4, "1 tbs"),
+(1, 5, "2 tsp"),
+(2, 6, "300ml"),
+(2, 7, "100ml"),
+(2, 8, "2 tbs"),
+(2, 9, "3 tbs"),
+(2, 10, "1 tbs"),
+(3, 11, "1 lb"),
+(3, 12, "5 tablespoons"),
+(3, 13, "1"),
+(3, 14, "3 cloves"),
+(3, 2, "3 parts"),
+(3, 15, "4 tbs"),
+(4, 16, "3 cups"),
+(4, 17, "6"),
+(4, 18, "4"),
+(4, 19, "1/4 cup"),
+(4, 5, "2 tsp"),
+(4, 20, "1 tsp"),
+(5, 21, "1 tblsp"),
+(5, 22, "2"),
+(5, 2, "1 finely chopped"),
+(5, 23, "1 Stick"),
+(5, 3, "1 medium"),
+(5, 14, "2 cloves chopped"),
+(5, 24, "500g"),
+(5, 4, "1 tbls"),
+(5, 25, "800g");
