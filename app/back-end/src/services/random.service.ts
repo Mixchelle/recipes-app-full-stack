@@ -1,8 +1,12 @@
-import { EndpointRequest } from "../types";
-import { switchEndpoints } from "../utils/utils";
-import * as RandomModel from '../models/random.model';
+import { EndpointRequest } from '../types';
+import endpoints from '../utils/utils';
+import RandomModel from '../models/random.model';
 
-export async function getRandom(endpoint: EndpointRequest) {
-  const apiEnpoint = switchEndpoints(endpoint);
-  return await RandomModel.getRandom(apiEnpoint);
+async function getRandom(endpoint: EndpointRequest) {
+  const apiEnpoint = endpoints.switchEndpoints(endpoint);
+  return RandomModel.getRandom(apiEnpoint);
 }
+
+export default {
+  getRandom,
+};

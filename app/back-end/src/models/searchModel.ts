@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
 import { ApiUrlType } from '../types';
+import getRecipes from '../utils/querys';
 import connection from './db/connection';
 
 export interface Recipe {
@@ -9,48 +9,58 @@ export interface Recipe {
   category: string;
 }
 
-
+const ERROR = 'fetch error';
 
 async function getAllRecipes(endpoint: ApiUrlType) {
-//   const query = `
-//   SELECT dr.*, ri.*
-//   FROM drinks_recipes dr
-//   JOIN recipes_ingredients ri ON dr.id = ri.recipe_id
-// `;
-//   const data = await connection.execute(query);
-
-  const url = `https://www.the${endpoint}db.com/api/json/v1/1/`;
-  const response = await fetch(`${url}search.php?s=`);
-  const data = await response.json();
-  return data;
+  try {
+    let query;
+    if (endpoint === 'cocktail') {
+      query = `${getRecipes.getRecipesDrinks} GROUP BY dr.id`;
+    } else {
+      query = `${getRecipes.getRecipesMeals} GROUP BY mr.id`;
+    }
+    const result = await connection.execute(query);
+    return result;
+  } catch (error) {
+    console.log(error);
+    return ERROR;
+  }
 }
 
 async function getRecipeByName(endpoint: ApiUrlType, name: string) {
-//   const query = `
-//   SELECT dr.*, ri.*
-//   FROM drinks_recipes dr
-//   JOIN recipes_ingredients ri ON dr.id = ri.recipe_id
-//   WHERE dr.name = '${name}'
-// `;
-//   const data = await connection.execute(query);
-const url = `https://www.the${endpoint}db.com/api/json/v1/1/`
-  const response = await fetch(`${url}search.php?s=${name}`);
-  const data = await response.json();
-  return data;
+  try {
+    let query;
+    if (endpoint === 'cocktail') {
+      query = `${getRecipes.getRecipesDrinks} WHERE dr.name = '${name}'
+    GROUP BY dr.id`;
+    } else {
+      query = `${getRecipes.getRecipesMeals} WHERE dr.name = '${name}'
+    GROUP BY mr.id`;
+    }
+    const data = await connection.execute(query);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return ERROR;
+  }
 }
 
 async function getRecipesByFirstLetter(endpoint: ApiUrlType, letter: string) {
-//   const query = `
-//   SELECT dr.*, ri.*
-//   FROM drinks_recipes dr
-//   JOIN recipes_ingredients ri ON dr.id = ri.recipe_id
-//   WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
-// `;
-// const data = await connection.execute(query);
-const url = `https://www.the${endpoint}db.com/api/json/v1/1/`
-  const response = await fetch(`${url}search.php?f=${letter}`);
-  const data = await response.json();
-  return data;
+  try {
+    let query;
+    if (endpoint === 'cocktail') {
+      query = ` ${getRecipes.getRecipesDrinks} WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
+      GROUP BY dr.id`;
+    } else {
+      query = ` ${getRecipes.getRecipesMeals} WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
+      GROUP BY mr.id`;
+    }
+    const data = await connection.execute(query);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return ERROR;
+  }
 }
 
 export default { getAllRecipes, getRecipeByName, getRecipesByFirstLetter };

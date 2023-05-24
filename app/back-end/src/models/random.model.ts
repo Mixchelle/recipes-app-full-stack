@@ -1,13 +1,27 @@
-import fetch from "node-fetch";
-import { ApiUrlType } from "../types";
+import { ApiUrlType } from '../types';
+import getRecipes from '../utils/querys';
+import connection from './db/connection';
 
-export async function getRandom(endpoint: ApiUrlType) {
+async function getRandom(endpoint: ApiUrlType) {
   try {
-    const response = await fetch(`https://www.the${endpoint}db.com/api/json/v1/1/random.php`);
-    const obj = await response.json();
-    return obj;
+    let query;
+    if (endpoint === 'cocktail') {
+      const randomNumber = Math.floor(Math.random() * 64 + 1);
+      query = `${getRecipes.getRecipesDrinks} WHERE dr.id = '${randomNumber}'
+      GROUP BY dr.id;`;
+    } else {
+      const randomNumber = Math.floor(Math.random() * 10 + 1);
+      query = `${getRecipes.getRecipesMeals} WHERE mr.id = '${randomNumber}'
+      GROUP BY mr.id;`;
+    }
+    const [result] = await connection.execute(query);
+    return result;
   } catch (error) {
     console.log(error);
     return 'fetch error';
   }
 }
+
+export default {
+  getRandom,
+};

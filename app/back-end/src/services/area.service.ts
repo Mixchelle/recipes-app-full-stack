@@ -1,4 +1,4 @@
-import areaModel from "../models/area.model";
+import areaModel from '../models/area.model';
 
 const getAll = async () => {
   const response = await areaModel.getAll();
@@ -6,11 +6,11 @@ const getAll = async () => {
 };
 
 const getByArea = async (ingredient: string) => {
-  const response = areaModel.getByArea(ingredient)
+  const response = areaModel.getByArea(ingredient);
   return response;
 };
 
-export default { 
+export default {
   getAll,
-  getByArea
-}
+  getByArea,
+};
