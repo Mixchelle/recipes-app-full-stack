@@ -10,7 +10,7 @@ async function getRandom(endpoint: ApiUrlType) {
       query = `${getRecipes.getRecipesDrinks} WHERE dr.id = '${randomNumber}'
       GROUP BY dr.id;`;
     } else {
-      const randomNumber = Math.floor(Math.random() * 10 + 1);
+      const randomNumber = Math.floor(Math.random() * 5 + 1);
       query = `${getRecipes.getRecipesMeals} WHERE mr.id = '${randomNumber}'
       GROUP BY mr.id;`;
     }

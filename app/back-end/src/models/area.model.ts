@@ -1,9 +1,9 @@
-import fetch from 'node-fetch';
 import connection from './db/connection';
+import getRecipes from '../utils/querys';
 
 const getAll = async () => {
   try {
-    const query = 'SELECT * FROM areas;';
+    const query = 'SELECT * FROM meals_areas;';
     const [result] = await connection.execute(query);
     return result;
   } catch (error) {
@@ -14,9 +14,8 @@ const getAll = async () => {
 
 const getByArea = async (area: string) => {
   try {
-    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
-    const obj = await response.json();
-    return obj;
+    const [result] = await connection.execute(getRecipes.getRecipeByArea, [area]);
+    return result;
   } catch (error) {
     console.log(error);
     return 'fetch error';

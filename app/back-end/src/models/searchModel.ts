@@ -19,8 +19,8 @@ async function getAllRecipes(endpoint: ApiUrlType) {
     } else {
       query = `${getRecipes.getRecipesMeals} GROUP BY mr.id`;
     }
-    const result = await connection.execute(query);
-    return result;
+    const [data] = await connection.execute(query);
+    return data;
   } catch (error) {
     console.log(error);
     return ERROR;
@@ -34,10 +34,10 @@ async function getRecipeByName(endpoint: ApiUrlType, name: string) {
       query = `${getRecipes.getRecipesDrinks} WHERE dr.name = '${name}'
     GROUP BY dr.id`;
     } else {
-      query = `${getRecipes.getRecipesMeals} WHERE dr.name = '${name}'
+      query = `${getRecipes.getRecipesMeals} WHERE mr.name = '${name}'
     GROUP BY mr.id`;
     }
-    const data = await connection.execute(query);
+    const [data] = await connection.execute(query);
     return data;
   } catch (error) {
     console.log(error);
@@ -52,10 +52,10 @@ async function getRecipesByFirstLetter(endpoint: ApiUrlType, letter: string) {
       query = ` ${getRecipes.getRecipesDrinks} WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
       GROUP BY dr.id`;
     } else {
-      query = ` ${getRecipes.getRecipesMeals} WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
+      query = ` ${getRecipes.getRecipesMeals} WHERE SUBSTRING(mr.name, 1, 1) = '${letter}'
       GROUP BY mr.id`;
     }
-    const data = await connection.execute(query);
+    const [data] = await connection.execute(query);
     return data;
   } catch (error) {
     console.log(error);
