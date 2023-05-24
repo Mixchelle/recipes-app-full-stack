@@ -6,6 +6,9 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
+    networks:
+      - my_network
+
   backend:
     container_name: app_backend
     build: ./back-end
@@ -13,8 +16,7 @@ services:
       - 3001:3001
     working_dir: /app-backend
     command: dev
-    volumes:
-      - ./backend/src:/app-backend/src
+
     environment:
       - APP_PORT=3001
       - JWT_SECRET=jwt_secret
@@ -22,6 +24,9 @@ services:
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=3306
+    networks:
+      - my_network
+
   db:
     image: mysql:8.0.32
     container_name: db
@@ -32,3 +37,8 @@ services:
     restart: always
     cap_add:
       - SYS_NICE
+    networks:
+      - my_network
+
+networks:
+  my_network: 
