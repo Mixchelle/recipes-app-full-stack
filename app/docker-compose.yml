@@ -23,8 +23,6 @@ services:
     command: dev
     depends_on:
       - db
-
-
     environment:
       - APP_PORT=3001
       - JWT_SECRET=jwt_secret
