@@ -40,6 +40,9 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=RECIPES_APP
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     restart: always
     cap_add:
       - SYS_NICE
