@@ -1,9 +1,9 @@
 import express from 'express';
 
-import {getIngredients} from '../controllers/ingredient.controller';
+import IgredientsController from '../controllers/ingredient.controller';
 
 const route = express.Router();
 
-route.get('/ingredients', getIngredients);
+route.get('/ingredients', IgredientsController.getIngredients);
 
 export default route;

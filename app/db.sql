@@ -420,25 +420,6 @@ CREATE TABLE `meals_categories` (
 INSERT INTO `meals_categories` (`name`)  VALUES
   ("Side"), ("Seafood"), ("Beef"), ("Vegetarian"), ("Pasta");
 
-DROP TABLE IF EXISTS `meals_recipes`;
-CREATE TABLE `meals_recipes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `category_id` int NOT NULL,
-  `instructions` varchar(655),
-  `image` varchar(255) NOT NULL,
-  `video` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`category_id`) REFERENCES `meals_categories` (`id`)
-);
-
-INSERT INTO `meals_recipes` (`name`, `category_id`, `instructions`, `image`, `video`)  VALUES 
-  ("Corba", 1, "Pick through your lentils for any foreign debris, rinse them 2 or 3 times, drain, and set aside", "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg", "https://www.youtube.com/watch?v=VVnZd8A84z4"),
-  ("Sushi", 2, "Get a small square of cling film and place a topping, like half a prawn or a small piece of smoked salmon, on it. Use damp hands to roll walnut-sized balls of rice and place on the topping", "https://www.themealdb.com/images/media/meals/g046bb1663960946.jpg", "https://www.youtube.com/watch?v=ub68OxEypaY"),
-  ("Bistek", 3, "Marinate beef in soy sauce, lemon (or calamansi), and ground black pepper for at least 1 hour. Note: marinate overnight for best result", "https://www.themealdb.com/images/media/meals/4pqimk1683207418.jpg", "https://www.youtube.com/watch?v=xOQON5_S7as"),
-  ("Tamiya", 4, "oak the beans in water to cover overnight.Drain. If skinless beans are unavailable, rub to loosen the skins, then discard the skins. Pat the beans dry with a towel", "https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg", "https://www.youtube.com/watch?v=mulqW-J3Yy4"),
-  ("Lasagne", 5, "Heat the oil in a large saucepan. Use kitchen scissors to snip the bacon into small pieces, or use a sharp knife to chop it on a chopping board", "https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg", "https://www.youtube.com/watch?v=gfhfsBPt46s");
- 
 DROP TABLE IF EXISTS `meals_ingredients`;
 CREATE TABLE `meals_ingredients` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -452,6 +433,37 @@ INSERT INTO `meals_ingredients` (`name`)  VALUES
   ("Beef"),("Soy Sauce"),("Lemon"),("Garlic"), ("Salt"),
   ("Broad Beans"),("Spring Onions"),("Garlic Clove"),("Parsley"), ("Flour"),
   ("Olive Oil"),("Bacon"),("Celery"),("Minced Beef"), ("Mozzarella ");
+
+DROP TABLE IF EXISTS `meals_areas`;
+CREATE TABLE `meals_areas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `meals_areas` (`name`)  VALUES
+  ("Japanese"),("Turkish"),("Filipino"),("Egyptian"),("Italian");
+
+DROP TABLE IF EXISTS `meals_recipes`;
+CREATE TABLE `meals_recipes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `category_id` int NOT NULL,
+  `area_id` int NOT NULL,
+  `instructions` varchar(655),
+  `image` varchar(255) NOT NULL,
+  `video` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`category_id`) REFERENCES `meals_categories` (`id`),
+  FOREIGN KEY (`area_id`) REFERENCES `meals_areas` (`id`)
+);
+
+INSERT INTO `meals_recipes` (`name`, `category_id`, `area_id`, `instructions`, `image`, `video`)  VALUES 
+  ("Corba", 1, 2, "Pick through your lentils for any foreign debris, rinse them 2 or 3 times, drain, and set aside", "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg", "https://www.youtube.com/watch?v=VVnZd8A84z4"),
+  ("Sushi", 2, 1, "Get a small square of cling film and place a topping, like half a prawn or a small piece of smoked salmon, on it. Use damp hands to roll walnut-sized balls of rice and place on the topping", "https://www.themealdb.com/images/media/meals/g046bb1663960946.jpg", "https://www.youtube.com/watch?v=ub68OxEypaY"),
+  ("Bistek", 3, 3, "Marinate beef in soy sauce, lemon (or calamansi), and ground black pepper for at least 1 hour. Note: marinate overnight for best result", "https://www.themealdb.com/images/media/meals/4pqimk1683207418.jpg", "https://www.youtube.com/watch?v=xOQON5_S7as"),
+  ("Tamiya", 4, 4, "oak the beans in water to cover overnight.Drain. If skinless beans are unavailable, rub to loosen the skins, then discard the skins. Pat the beans dry with a towel", "https://www.themealdb.com/images/media/meals/n3xxd91598732796.jpg", "https://www.youtube.com/watch?v=mulqW-J3Yy4"),
+  ("Lasagne", 5, 5, "Heat the oil in a large saucepan. Use kitchen scissors to snip the bacon into small pieces, or use a sharp knife to chop it on a chopping board", "https://www.themealdb.com/images/media/meals/wtsvxx1511296896.jpg", "https://www.youtube.com/watch?v=gfhfsBPt46s");
 
 DROP TABLE IF EXISTS `meals_recipes_ingredients`;
 CREATE TABLE `meals_recipes_ingredients` (
