@@ -2,9 +2,9 @@ const express = require('express');
 import categoryController from '../controllers/categoryController';
 
 
-const router = express.Router();
+const categoryRouter = express.Router();
 
-router.get('/categories', categoryController.getAllCategories)
-router.get('/category', categoryController.getByCategory)
+categoryRouter.get('/categories', categoryController.getAllCategories)
+categoryRouter.get('/category', categoryController.getByCategory)
 
-export default router;
+export default categoryRouter;
