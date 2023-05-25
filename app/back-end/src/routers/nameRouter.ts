@@ -4,7 +4,6 @@ import NameController from '../controllers/searchController';
 const router = Router();
 
 router.get('/name', NameController.getAllRecipes);
-router.get('/name?q=', NameController.getByName);
 
 router.get('/letter', NameController.getRecipesByFirstLetter);
 
