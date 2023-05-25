@@ -5,3 +5,5 @@ node_modules.tar.gz
 /cypress
 .env
 *.http
+coverage
+cypress
