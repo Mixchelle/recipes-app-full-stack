@@ -18,8 +18,8 @@ services:
     ports:
       - 3001:3001
     working_dir: /app-backend
-    tty: true
     stdin_open: true
+    tty: true
     command: dev
     depends_on:
       - db
@@ -46,8 +46,3 @@ services:
     restart: always
     cap_add:
       - SYS_NICE
-    networks:
-      - my_network
-
-networks:
-  my_network: 
