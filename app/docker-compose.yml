@@ -12,6 +12,8 @@ services:
     ports:
       - 3001:3001
     working_dir: /app-backend
+    stdin_open: true
+    tty: true
     command: dev
     volumes:
       - ./backend/src:/app-backend/src
@@ -32,3 +34,4 @@ services:
     restart: always
     cap_add:
       - SYS_NICE
+    
