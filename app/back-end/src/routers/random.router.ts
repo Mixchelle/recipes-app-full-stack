@@ -1,9 +1,9 @@
 import express from 'express';
 
-import * as randomController from '../controllers/random.controller';
+import randomController from '../controllers/random.controller';
 
-const route = express.Router();
+const randomRouter = express.Router();
 
-route.get('/random', async (req, res) => randomController.getRandom(req, res));
+randomRouter.get('/random', randomController.getRandom);
 
-export default route;
+export default randomRouter;

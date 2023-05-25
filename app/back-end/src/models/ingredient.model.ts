@@ -1,11 +1,16 @@
-import fetch from 'node-fetch';
 import { ApiUrlType } from '../types';
+import connection from './db/connection';
 
 const getAll = async (endpoint: ApiUrlType) => {
   try {
-    const response = await fetch(`https://www.the${endpoint}db.com/api/json/v1/1/list.php?i=list`);
-    const obj = await response.json();
-    return obj;
+    let query;
+    if (endpoint === 'cocktail') {
+      query = 'SELECT * FROM drinks_ingredients;';
+    } else {
+      query = 'SELECT * FROM meals_ingredients;';
+    }
+    const [result] = await connection.execute(query);
+    return result;
   } catch (error) {
     console.log(error);
     return 'fetch error';
@@ -14,13 +19,18 @@ const getAll = async (endpoint: ApiUrlType) => {
 
 const getByIngredient = async (endpoint: ApiUrlType, ingredient: string) => {
   try {
-    const response = await fetch(`https://www.the${endpoint}db.com/api/json/v1/1/filter.php?i=${ingredient}`);
-    const obj = await response.json();
-    return obj;
+    let query;
+    if (endpoint === 'cocktail') {
+      query = 'SELECT * FROM drinks_ingredients WHERE name = ?;';
+    } else {
+      query = 'SELECT * FROM meals_ingredientsWHERE name = ?;';
+    }
+    const [result] = await connection.execute(query, [ingredient]);
+    return result;
   } catch (error) {
     console.log(error);
     return 'fetch error';
   }
 };
 
-export default {getAll, getByIngredient}
+export default { getAll, getByIngredient };

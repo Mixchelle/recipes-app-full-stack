@@ -6,15 +6,23 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
+    networks:
+      - my_network
+    depends_on:
+      - backend
+    
+
   backend:
     container_name: app_backend
     build: ./back-end
     ports:
       - 3001:3001
     working_dir: /app-backend
+    tty: true
+    stdin_open: true
     command: dev
-    volumes:
-      - ./backend/src:/app-backend/src
+    depends_on:
+      - db
     environment:
       - APP_PORT=3001
       - JWT_SECRET=jwt_secret
@@ -22,6 +30,9 @@ services:
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=3306
+    networks:
+      - my_network
+
   db:
     image: mysql:8.0.32
     container_name: db
@@ -29,6 +40,14 @@ services:
       - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=RECIPES_APP
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     restart: always
     cap_add:
       - SYS_NICE
+    networks:
+      - my_network
+
+networks:
+  my_network: 
