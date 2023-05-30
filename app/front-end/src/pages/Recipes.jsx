@@ -10,26 +10,20 @@ function Recipes() {
   const location = useLocation();
   const history = useHistory();
 
-  const pageName = useCallback(() => {
-    switch (location.pathname) {
-    case '/meals':
-      return 'meal';
-    default: // /drinks
-      return 'cocktail';
-    }
-  }, [location.pathname]);
+  const pageName = location.pathname;
+  const locationPath = location.pathname.replace('/', '');
 
   useEffect(() => {
     async function setDefaultRecipes() {
-      const data = await fetchData(pageName(), 'name', '');
-      const path = location.pathname.replace('/', '');
-      const cleanData = cleanDataAttributes(data, path);
-      setSearchData(cleanData[path]);
+      const data = await fetchData(pageName, 'name', '');
+      // const path = location.pathname.replace('/', '');
+      const cleanData = cleanDataAttributes(data, pageName);
+      setSearchData(cleanData);
     }
     setDefaultRecipes();
   }, [location.pathname, pageName, setSearchData]);
 
-  const recipeCard = useCallback(({ index, str: title, thumb: img, id, idMeal }) => (
+  const recipeCard = useCallback(({ index, name: title, image: img, id, locationPath }) => (
     <Col
       key={ index }
     >
@@ -37,7 +31,11 @@ function Recipes() {
         data-testid={ `${index}-recipe-card` }
         bg="light"
         text="dark"
-        onClick={ () => { history.push(`${idMeal ? 'meal' : 'drink'}s/${id}`); } }
+        onClick={ () => { 
+          console.log(locationPath)
+          history.push(`${locationPath}name?q=${title}`); 
+          // history.push('/meals/name?q=sushi'); 
+        } }
       >
         <Card.Img
           variant="top"
@@ -57,7 +55,7 @@ function Recipes() {
   ), [history]);
 
   const recipeListLength = 12;
-
+  
   const recipeList = useCallback(() => {
     if (!searchData.length) {
       return (
@@ -80,8 +78,8 @@ function Recipes() {
       );
     }
     return searchData
-      .slice(0, recipeListLength).map(({ str, thumb, id, idMeal }, index) => (
-        recipeCard({ index, str, thumb, id, idMeal })
+      .slice(0, recipeListLength).map(({ name, image, id }, index) => (
+        recipeCard({ index, name, image, id, locationPath })
       ));
   }, [searchData, recipeCard]);
 

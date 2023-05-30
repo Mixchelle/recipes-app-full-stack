@@ -18,20 +18,20 @@ export default function useFetch() {
   const fetchData = async (pageName, radioOption, input) => {
     setIsLoading(true);
     let url;
-    const urlType = `${PAGE_URL}/${pageName}`;
+    const urlType = `${PAGE_URL}${pageName}`;
 
     switch (radioOption) {
     case 'ingredient':
-      url = `${urlType}s/ingredients?q=${input}`;
+      url = `${urlType}/ingredients?q=${input}`;
       break;
     case 'name':
-      url = `${urlType}s/name?q=${input}`;
+      url = `${urlType}/name?q=${input}`;
       break;
     case 'first-letter':
-      url = `${urlType}s/letter?q=${input}`;
+      url = `${urlType}/letter?q=${input}`;
       break;
     case 'category':
-      url = `${urlType}s/category?q=${input}`;
+      url = `${urlType}/category?q=${input}`;
       break;
     default:
       url = '';
@@ -42,7 +42,7 @@ export default function useFetch() {
     return fetchAPI(url);
   };
 
-  const fetchCategories = (pageName) => fetchAPI(`${PAGE_URL}/${pageName}/categories`);
+  const fetchCategories = (pageName) => fetchAPI(`${PAGE_URL}/${pageName}s/categories`);
 
   const fetchRecipe = async (pageName, id) => {
     try {

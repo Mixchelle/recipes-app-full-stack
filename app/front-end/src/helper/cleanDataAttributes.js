@@ -4,13 +4,13 @@ export default function cleanDataAttributes(data, path) {
   let thumb = '';
 
   if (path === 'meals') {
-    idName = 'idMeal';
-    strName = 'strMeal';
-    thumb = 'strMealThumb';
+    idName = 'id';
+    strName = 'name';
+    thumb = 'image';
   } else {
-    idName = 'idDrink';
-    strName = 'strDrink';
-    thumb = 'strDrinkThumb';
+    idName = 'id';
+    strName = 'name';
+    thumb = 'image';
   }
 
   if (data[path] === null) {
@@ -18,10 +18,10 @@ export default function cleanDataAttributes(data, path) {
     return data;
   }
 
-  data[path].forEach((recipe) => {
+  data.forEach((recipe) => {
     recipe.id = recipe[idName];
-    recipe.str = recipe[strName];
-    recipe.thumb = recipe[thumb];
+    recipe.name = recipe[strName];
+    recipe.image = recipe[thumb];
   });
 
   return data;
