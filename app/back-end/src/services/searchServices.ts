@@ -1,26 +1,22 @@
 import Model from '../models/searchModel';
 import { EndpointRequest } from '../types';
-import endpoints from '../utils/utils';
 
 const ERROR = 'Erro ao carregar a API';
 
 async function getAllRecipes(endpoint: EndpointRequest) {
-  const newEndpoint = endpoints.switchEndpoints(endpoint);
-  const result = await Model.getAllRecipes(newEndpoint);
+  const result = await Model.getAllRecipes(endpoint);
   if (!result) return { message: ERROR };
   return result;
 }
 
 async function getRecipeByName(endpoint: EndpointRequest, name: string) {
-  const newEndpoint = endpoints.switchEndpoints(endpoint);
-  const result = await Model.getRecipeByName(newEndpoint, name);
+  const result = await Model.getRecipeByName(endpoint, name);
   if (!result) return { message: ERROR };
   return result;
 }
 
 async function getRecipesByFirstLetter(endpoint: EndpointRequest, letter: string) {
-  const newEndpoint = endpoints.switchEndpoints(endpoint);
-  const result = await Model.getRecipesByFirstLetter(newEndpoint, letter);
+  const result = await Model.getRecipesByFirstLetter(endpoint, letter);
   if (!result) return { message: ERROR };
   return result;
 }

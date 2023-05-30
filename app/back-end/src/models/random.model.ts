@@ -1,11 +1,11 @@
-import { ApiUrlType } from '../types';
+import { EndpointRequest } from '../types';
 import getRecipes from '../utils/querys';
 import connection from './db/connection';
 
-async function getRandom(endpoint: ApiUrlType) {
+async function getRandom(endpoint: EndpointRequest) {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       const randomNumber = Math.floor(Math.random() * 64 + 1);
       query = `${getRecipes.getRecipesDrinks} WHERE dr.id = '${randomNumber}'
       GROUP BY dr.id;`;

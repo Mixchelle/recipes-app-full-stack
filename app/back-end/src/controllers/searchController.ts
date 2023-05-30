@@ -33,4 +33,4 @@ async function getRecipesByFirstLetter(req: Request, res: Response) {
   }
 }
 
-export default { getAllRecipes, getRecipesByFirstLetter, getByName };
+export default { getAllRecipes, getRecipesByFirstLetter };

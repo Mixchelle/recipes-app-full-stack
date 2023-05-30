@@ -1,10 +1,10 @@
-import { ApiUrlType } from '../types';
+import { EndpointRequest } from '../types';
 import connection from './db/connection';
 
-const getAll = async (endpoint: ApiUrlType) => {
+const getAll = async (endpoint: EndpointRequest) => {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       query = 'SELECT * FROM drinks_ingredients;';
     } else {
       query = 'SELECT * FROM meals_ingredients;';
@@ -17,10 +17,10 @@ const getAll = async (endpoint: ApiUrlType) => {
   }
 };
 
-const getByIngredient = async (endpoint: ApiUrlType, ingredient: string) => {
+const getByIngredient = async (endpoint: EndpointRequest, ingredient: string) => {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       query = 'SELECT * FROM drinks_ingredients WHERE name = ?;';
     } else {
       query = 'SELECT * FROM meals_ingredientsWHERE name = ?;';

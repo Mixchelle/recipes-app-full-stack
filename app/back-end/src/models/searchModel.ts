@@ -1,4 +1,4 @@
-import { ApiUrlType } from '../types';
+import { EndpointRequest } from '../types';
 import getRecipes from '../utils/querys';
 import connection from './db/connection';
 
@@ -11,10 +11,10 @@ export interface Recipe {
 
 const ERROR = 'fetch error';
 
-async function getAllRecipes(endpoint: ApiUrlType) {
+async function getAllRecipes(endpoint: EndpointRequest) {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       query = `${getRecipes.getRecipesDrinks} GROUP BY dr.id`;
     } else {
       query = `${getRecipes.getRecipesMeals} GROUP BY mr.id`;
@@ -27,10 +27,10 @@ async function getAllRecipes(endpoint: ApiUrlType) {
   }
 }
 
-async function getRecipeByName(endpoint: ApiUrlType, name: string) {
+async function getRecipeByName(endpoint: EndpointRequest, name: string) {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       query = `${getRecipes.getRecipesDrinks} WHERE dr.name = '${name}'
     GROUP BY dr.id`;
     } else {
@@ -45,10 +45,10 @@ async function getRecipeByName(endpoint: ApiUrlType, name: string) {
   }
 }
 
-async function getRecipesByFirstLetter(endpoint: ApiUrlType, letter: string) {
+async function getRecipesByFirstLetter(endpoint: EndpointRequest, letter: string) {
   try {
     let query;
-    if (endpoint === 'cocktail') {
+    if (endpoint === '/drinks') {
       query = ` ${getRecipes.getRecipesDrinks} WHERE SUBSTRING(dr.name, 1, 1) = '${letter}'
       GROUP BY dr.id`;
     } else {
