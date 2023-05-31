@@ -22,7 +22,7 @@ const NUMBER_THIRTY_TWO = 32;
 function RecipeDetails() {
   const history = useHistory();
   const location = useLocation();
-  const id = location.pathname.split('/')[2];
+  const id = location.search;
   const page = location.pathname.split('/')[1];
   const [copied, setCopied] = useState(false);
   const { toggleFavorite } = useFavorite();
@@ -63,24 +63,26 @@ function RecipeDetails() {
 
     toggleFavorite(recipe[0]);
   }, [favorite, recipe, toggleFavorite]);
-
+  console.log('RECEITA', recipe);
   return (
     <>
       { recipe.map(({
-        idMeal,
-        strMeal,
-        strMealThumb,
-        strCategory,
-        strAlcoholic = '',
-        strInstructions = '',
-        strYoutube = '',
-        idDrink,
-        strDrink,
-        strDrinkThumb,
+        id: idMeal,
+        name: strMeal,
+        image: strMealThumb,
+        category: strCategory,
+        alcohol: strAlcoholic = '',
+        instructions: strInstructions = '',
+        video: strYoutube = '',
+        ingredients,
+        measurement,
+        // id: idDrink,
+        // strDrink,
+        // strDrinkThumb,
       }, index) => (
-        (idMeal || idDrink) && (
+        (idMeal) && (
           <Container
-            key={ `${idMeal || idDrink}${index}` }
+            key={ `${idMeal}${index}` }
             className="pt-3 col-md-5 mx-auto"
           >
             <Row>
@@ -116,7 +118,7 @@ function RecipeDetails() {
             </Row>
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title data-testid="recipe-title">{strMeal || strDrink}</Card.Title>
+                <Card.Title data-testid="recipe-title">{strMeal}</Card.Title>
                 <Card.Subtitle
                   data-testid="recipe-category"
                   className="text-muted"
@@ -125,7 +127,7 @@ function RecipeDetails() {
                 </Card.Subtitle>
               </Card.Body>
               <Card.Img
-                src={ strMealThumb || strDrinkThumb }
+                src={ strMealThumb}
                 data-testid="recipe-photo"
                 variant="bottom"
               />
@@ -142,15 +144,13 @@ function RecipeDetails() {
                 >
                   Ingredients
                 </ListGroup.Item>
-                { ingredients.map((
-                  { ingredient, measure },
-                ) => (
+                { ingredients.map((ingredient, i) => (
                   <ListGroup.Item
-                    key={ `${ingredient}${measure}` }
+                    key={ `${ingredient} ${measurement[i]}` }
                     enabled="false"
                     as="li"
                   >
-                    { ` ${ingredient} ${measure}` }
+                    { ` ${ingredient} ${measurement[i]}` }
                   </ListGroup.Item>
                 )) }
               </ListGroup>
@@ -185,10 +185,10 @@ function RecipeDetails() {
               <h2>Recommendations</h2>
               <Carousel fade>
                 { recommended.map(({
-                  strDrinkThumb: imageDrink,
-                  strMealThumb: imageMeal,
-                  strDrink: nameDrink,
-                  strMeal: nameMeal,
+                  image: imageDrink,
+                  // strMealThumb: imageMeal,
+                  name: nameDrink,
+                  // strMeal: nameMeal,
                   id: recipeId,
                 }) => (
                   <Carousel.Item
@@ -196,8 +196,8 @@ function RecipeDetails() {
                   >
                     <Image
                       className="d-block w-100"
-                      src={ imageMeal || imageDrink }
-                      alt={ nameMeal || nameDrink }
+                      src={ imageDrink }
+                      alt={ nameDrink }
                       rounded
                     />
                     <Carousel.Caption>
@@ -205,7 +205,7 @@ function RecipeDetails() {
                         data-testid={ `${recipeId}-recommendation-title` }
                         className="text-shadow"
                       >
-                        { nameMeal || nameDrink }
+                        { nameDrink }
                       </h3>
                     </Carousel.Caption>
                   </Carousel.Item>

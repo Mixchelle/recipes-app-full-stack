@@ -16,7 +16,6 @@ function Recipes() {
   useEffect(() => {
     async function setDefaultRecipes() {
       const data = await fetchData(pageName, 'name', '');
-      // const path = location.pathname.replace('/', '');
       const cleanData = cleanDataAttributes(data, pageName);
       setSearchData(cleanData);
     }
@@ -32,9 +31,7 @@ function Recipes() {
         bg="light"
         text="dark"
         onClick={ () => { 
-          console.log(locationPath)
-          history.push(`${locationPath}name?q=${title}`); 
-          // history.push('/meals/name?q=sushi'); 
+          history.push(`${locationPath}/name?q=${title}`); 
         } }
       >
         <Card.Img

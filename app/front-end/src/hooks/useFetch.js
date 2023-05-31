@@ -18,7 +18,7 @@ export default function useFetch() {
   const fetchData = async (pageName, radioOption, input) => {
     setIsLoading(true);
     let url;
-    const urlType = `${PAGE_URL}${pageName}`;
+    const urlType = `${PAGE_URL}${pageName}`; 
 
     switch (radioOption) {
     case 'ingredient':
@@ -48,7 +48,7 @@ export default function useFetch() {
     try {
       setIsLoading(true);
 
-      const url = `${PAGE_URL}/${pageName}/${id}`;
+      const url = `${PAGE_URL}/${pageName}/name${id}`;
 
       const response = await fetch(url);
       const json = await response.json();

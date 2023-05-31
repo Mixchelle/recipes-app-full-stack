@@ -46,7 +46,7 @@ export default function CardDoneRecipe({ page }) {
   }, [seconds, idRecipeCopied]);
 
   const handleClick = useCallback(({ target: { name, id } }) => {
-    const link = `http://localhost:3000/${name}s/${id}`;
+    const link = `http://localhost:3000/${name}/name?q=${id}`;
     clipboardCopy(link);
     setRecipeCopied(id);
     setSeconds(THREE);
@@ -59,7 +59,7 @@ export default function CardDoneRecipe({ page }) {
     >
       { recipeArr && recipeArr.map((recipe, index) => (
         <Card key={ recipe.id }>
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+          <Link to={ `/${recipe.type}/name?q=${recipe.name}` }>
             <Card.Img
               variant="top"
               src={ recipe.image }
@@ -69,7 +69,7 @@ export default function CardDoneRecipe({ page }) {
           </Link>
           <Card.Body>
             <Link
-              to={ `/${recipe.type}s/${recipe.id}` }
+              to={ `/${recipe.type}/name?q=${recipe.name}` }
               className="text-decoration-none"
             >
               <Card.Title
@@ -120,7 +120,7 @@ export default function CardDoneRecipe({ page }) {
                       alt="share"
                       data-testid={ `${index}-horizontal-share-btn` }
                       name={ recipe.type }
-                      id={ recipe.id }
+                      id={ recipe.name }
                     />
                   )}
               </Button>

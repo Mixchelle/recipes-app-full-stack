@@ -6,6 +6,8 @@ services:
     ports:
       - 3000:3000
     working_dir: /app-frontend
+    volumes:
+      - ./front-end/src:/app-frontend/src
     networks:
       - my_network
     depends_on:
@@ -30,6 +32,8 @@ services:
       - DB_PASS=123456
       - DB_HOST=db
       - DB_PORT=3306
+    volumes:
+      - ./back-end/src:/app-backend/src
     networks:
       - my_network
 

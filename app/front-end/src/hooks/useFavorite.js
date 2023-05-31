@@ -4,28 +4,29 @@ import { AppContext } from '../context/AppProvider';
 export default function useFavorite() {
   const { handleFavRecipesFilter } = useContext(AppContext);
 
-  function recipeObjectCreator({ idMeal, idDrink,
-    strMeal, strDrink,
-    strMealThumb, strDrinkThumb,
-    strArea = '',
-    strCategory = '',
-    strAlcoholic = '',
+  function recipeObjectCreator({ 
+    id,
+    name,
+    image,
+    area_id: strArea = '',
+    category: strCategory = '',
+    alcohol: strAlcoholic = '',
   }) {
     return {
-      id: idMeal || idDrink,
-      type: idMeal ? 'meal' : 'drink',
+      id,
+      type: strAlcoholic ? 'drinks' : 'meals',
       nationality: strArea,
       category: strCategory,
       alcoholicOrNot: strAlcoholic,
-      name: strMeal || strDrink,
-      image: strMealThumb || strDrinkThumb,
+      name,
+      image,
     };
   }
 
   function toggleFavorite(recipe) {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes') ?? '[]');
-    const { idMeal, idDrink } = recipe;
-    const id = idMeal || idDrink;
+    const { id } = recipe;
+    // const id = idMeal || idDrink;
     let newFavoriteRecipes;
 
     if (!favoriteRecipes.some(({ id: recipeId }) => recipeId === id)) {

@@ -20,6 +20,7 @@ function RecipesProvider({ children }) {
   const getPageInfo = useCallback((pageId, pageName) => {
     setId(pageId);
     setPage(pageName);
+    console.log('APGINA', pageId, pageName);
   }, []);
 
   useEffect(() => {
@@ -61,9 +62,11 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const getRecipe = async () => {
       if (!page) return;
-      const data = await fetchRecipe(page === 'drinks' ? 'cocktail' : 'meal', id);
+      console.log('PAGE', page)
+      const data = await fetchRecipe(page === 'drinks' ? 'drinks' : 'meals', id);
 
-      setRecipe(data[page === 'drinks' ? 'drinks' : 'meals']);
+      setRecipe(data);
+
     };
     getRecipe();
   }, [id, page]);
@@ -96,15 +99,15 @@ function RecipesProvider({ children }) {
   useEffect(() => {
     const getRecommendedRecipes = async () => {
       if (!page) return;
-      const options = [page === 'drinks' ? 'meal' : 'cocktail', 'name', ''];
-      const key = page === 'drinks' ? 'meals' : 'drinks';
+      const options = [page === 'drinks' ? '/meals' : '/drinks', 'name', ''];
+      // const key = page === 'drinks' ? '/meals' : '/drinks';
 
-      const data = (await fetchData(...options))[key];
+      const data = (await fetchData(...options));
       const slicedData = data.slice(0, NUMBER_SIX)
         .map((rec, index) => ({ ...rec, id: index }));
 
       setRecommended(
-        slicedData.slice(0, NUMBER_SIX),
+        slicedData,
       );
     };
     getRecommendedRecipes();
