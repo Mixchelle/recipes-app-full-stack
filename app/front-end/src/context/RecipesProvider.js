@@ -20,21 +20,22 @@ function RecipesProvider({ children }) {
   const getPageInfo = useCallback((pageId, pageName) => {
     setId(pageId);
     setPage(pageName);
-    console.log('APGINA', pageId, pageName);
   }, []);
 
   useEffect(() => {
-    const getValidIngredients = (str) => Object.entries(recipe[0])
-      .filter((entry) => entry[0].includes(str))
-      .filter((entry) => entry[1]);
+    // const getValidIngredients = (str) => Object.entries(recipe[0])
+    //   .filter((entry) => entry[0].includes(str))
+    //   .filter((entry) => entry[1]);
 
     const ingredientsArray = () => {
-      const measure = getValidIngredients('strMeasure');
-      const ingredient = getValidIngredients('strIngredient');
+      // const measure = getValidIngredients('strMeasure');
+      // const ingredient = getValidIngredients('strIngredient');
+      const measure = recipe[0].measurement;
+      const ingredient = recipe[0].ingredients;
 
       return ingredient.map((data, index) => ({
-        ingredient: data[1],
-        measure: measure[index] === undefined ? '' : measure[index][1],
+        ingredient: data,
+        measure: measure[index] === null ? '' : measure[index],
         id: index,
         checked: false,
       }));
@@ -46,7 +47,7 @@ function RecipesProvider({ children }) {
     if (!inProgressRecipes[page]) inProgressRecipes[page] = {};
 
     let newIngredients = ingredientsArray();
-
+    // console.log(inProgressRecipes[page][id])
     if (inProgressRecipes[page][id]) {
       newIngredients = newIngredients
         .map((ingredient) => ({
@@ -63,6 +64,7 @@ function RecipesProvider({ children }) {
     const getRecipe = async () => {
       if (!page) return;
       console.log('PAGE', page)
+      console.log('ERROR: ', page, id)
       const data = await fetchRecipe(page === 'drinks' ? 'drinks' : 'meals', id);
 
       setRecipe(data);
@@ -80,8 +82,7 @@ function RecipesProvider({ children }) {
   }, []);
 
   const checkRecipeStatus = useCallback(() => {
-    const { idDrink, idMeal } = recipe[0];
-    const idRecipe = idDrink || idMeal;
+    const { id: idRecipe } = recipe[0];
 
     setDone(idChecker('doneRecipes', idRecipe));
 

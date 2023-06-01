@@ -13,7 +13,7 @@ import '../styles/Recipe.css';
 function RecipeInProgress() {
   const history = useHistory();
   const location = useLocation();
-  const id = location.pathname.split('/')[2];
+  const id = location.pathname.split('/')[1];
   const page = location.pathname.split('/')[1];
   const [copied, setCopied] = useState(false);
   const { toggleFavorite } = useFavorite();
@@ -30,10 +30,10 @@ function RecipeInProgress() {
   } = useContext(RecipesContext);
 
   const { handleDoneRecipesFilter } = useContext(AppContext);
-
-  useEffect(() => {
-    getPageInfo(id, page);
-  }, [page, id, getPageInfo]);
+  
+  // useEffect(() => {
+  //   // getPageInfo(id, page);
+  // }, [page, id, getPageInfo]);
 
   useEffect(() => {
     checkRecipeStatus();
@@ -113,23 +113,24 @@ function RecipeInProgress() {
 
     setBtnEnabled(ingredientsDone.length === ingredients.length);
   }, [ingredients]);
-
+  console.log('INGREDINTS: ', ingredients);
   return (
     <>
       { recipe.map(({
-        idMeal,
-        strMeal,
-        strMealThumb,
-        strCategory,
-        strAlcoholic = '',
-        strInstructions = '',
-        idDrink,
-        strDrink,
-        strDrinkThumb,
+        id: idMeal,
+        name: strMeal,
+        image: strMealThumb,
+        category: strCategory,
+        alcohol: strAlcoholic = '',
+        instructions: strInstructions = '',
+        measurement,
+        // idDrink,
+        // strDrink,
+        // strDrinkThumb,
       }, index) => (
-        (idMeal || idDrink) && (
+        (idMeal) && (
           <Container
-            key={ `${idMeal || idDrink}${index}` }
+            key={ `${idMeal}${index}` }
             className="mt-5 pt-4 col-md-5 mx-auto"
           >
             <Container
@@ -153,7 +154,7 @@ function RecipeInProgress() {
                 <Button
                   variant="secondary"
                   onClick={ () => history.push(
-                    `${idMeal ? '/meals/' : '/drinks/'}${idMeal || idDrink}`,
+                    `${idMeal ? '/meals/' : '/drinks/'}${idMeal}`,
                   ) }
                 >
                   Back
@@ -183,7 +184,7 @@ function RecipeInProgress() {
             </Row>
             <Card className="mb-3">
               <Card.Body>
-                <Card.Title data-testid="recipe-title">{strMeal || strDrink}</Card.Title>
+                <Card.Title data-testid="recipe-title">{strMeal}</Card.Title>
                 <Card.Subtitle
                   data-testid="recipe-category"
                   className="text-muted"
@@ -192,7 +193,7 @@ function RecipeInProgress() {
                 </Card.Subtitle>
               </Card.Body>
               <Card.Img
-                src={ strMealThumb || strDrinkThumb }
+                src={ strMealThumb }
                 data-testid="recipe-photo"
                 variant="bottom"
               />
