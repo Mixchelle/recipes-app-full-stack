@@ -42,7 +42,7 @@ export default function useFetch() {
     return fetchAPI(url);
   };
 
-  const fetchCategories = (pageName) => fetchAPI(`${PAGE_URL}/${pageName}s/categories`);
+  const fetchCategories = (pageName) => fetchAPI(`${PAGE_URL}${pageName}/categories`);
 
   const fetchRecipe = async (pageName, id) => {
     try {

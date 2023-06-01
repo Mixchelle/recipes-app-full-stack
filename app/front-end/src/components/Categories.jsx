@@ -10,39 +10,33 @@ export default function Categories() {
   const location = useLocation();
   const [selectedCategory, setCategory] = useState('All');
 
-  const pageName = useCallback(() => {
-    switch (location.pathname) {
-    case '/drinks':
-      return 'cocktail';
-    default:
-      return 'meal';
-    }
-  }, [location.pathname]);
+  const pageName = location.pathname;
 
   const onClickHandler = useCallback(async ({ target: { value } }) => {
     let strCategory = value;
     let data;
     if (strCategory === 'All' || strCategory === selectedCategory) {
       strCategory = 'All';
-      data = await fetchData(pageName(), 'name', '');
+      data = await fetchData(pageName, 'name', '');
     } else {
-      data = await fetchData(pageName(), 'category', strCategory);
+      data = await fetchData(pageName, 'category', strCategory);
     }
     const path = location.pathname.replace('/', '');
     const cleanData = cleanDataAttributes(data, path);
-    setSearchData(cleanData[path]);
+    setSearchData(cleanData);
     setCategory(strCategory);
   }, [pageName, selectedCategory]);
 
   useEffect(() => {
     const setCategoriesList = async () => {
-      const categories = await fetchCategories(pageName());
-      const path = location.pathname.replace('/', '');
-      if (!categories[path]) return;
-      const FIVE = 6;
-      const categoriesNew = [...categories[path]];
-      categoriesNew.splice(0, 0, { strCategory: 'All' });
-      setCategories(categoriesNew.slice(0, FIVE));
+      const categories = await fetchCategories(pageName);
+      // const path = location.pathname.replace('/', '');
+      // if (!categories[path]) return;
+      // const FIVE = 6;
+      const categoriesNew = categories.map(({name}) => ({name}));
+      categoriesNew.splice(0, 0, { name: 'All' });
+      console.log(categoriesNew);
+      setCategories(categoriesNew.slice(0, 5));
     };
     setCategoriesList();
   }, [fetchCategories, pageName, location]);
@@ -54,7 +48,7 @@ export default function Categories() {
         className="mb-3 col-md-5 mx-auto"
       >
         {
-          categoriesList.map(({ strCategory }) => (
+          categoriesList.map(({ name: strCategory }) => (
             <Button
               key={ `cat-${strCategory}` }
               variant="outline-dark"

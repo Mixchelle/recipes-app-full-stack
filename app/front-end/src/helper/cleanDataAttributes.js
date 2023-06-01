@@ -1,20 +1,20 @@
-export default function cleanDataAttributes(data, path) {
-  let idName = '';
-  let strName = '';
-  let thumb = '';
+export default function cleanDataAttributes(data, _path) {
+  let idName = 'id';
+  let strName = 'name';
+  let thumb = 'image';
 
-  if (path === 'meals') {
-    idName = 'id';
-    strName = 'name';
-    thumb = 'image';
-  } else {
-    idName = 'id';
-    strName = 'name';
-    thumb = 'image';
-  }
+  // if (path === 'meals') {
+  //   idName = 'id';
+  //   strName = 'name';
+  //   thumb = 'image';
+  // } else {
+  //   idName = 'id';
+  //   strName = 'name';
+  //   thumb = 'image';
+  // }
 
-  if (data[path] === null) {
-    data[path] = [];
+  if (data === null) {
+    data = [];
     return data;
   }
 
