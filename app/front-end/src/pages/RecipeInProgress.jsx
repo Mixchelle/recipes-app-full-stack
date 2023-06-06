@@ -41,24 +41,22 @@ function RecipeInProgress() {
 
   const doneRecipeObjectBuild = useCallback(() => {
     const {
-      strArea,
-      strCategory,
-      strAlcoholic,
-      strMeal,
-      strDrink,
-      strMealThumb,
-      strDrinkThumb,
+      area: strArea,
+      category: strCategory,
+      alcohol: strAlcoholic,
+      name,
+      image,
       strTags,
     } = recipe[0];
 
     return {
       id,
-      type: page.slice(0, page.length - 1),
+      type: page,
       nationality: strArea || '',
       category: strCategory || '',
       alcoholicOrNot: strAlcoholic || '',
-      name: strMeal || strDrink,
-      image: strMealThumb || strDrinkThumb,
+      name,
+      image,
       doneDate: new Date(),
       tags: strTags ? strTags.split(',') : [],
     };
@@ -113,7 +111,7 @@ function RecipeInProgress() {
 
     setBtnEnabled(ingredientsDone.length === ingredients.length);
   }, [ingredients]);
-  console.log('INGREDINTS: ', ingredients);
+
   return (
     <>
       { recipe.map(({

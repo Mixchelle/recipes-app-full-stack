@@ -1,5 +1,6 @@
 import { EndpointRequest } from '../types';
 import connection from './db/connection';
+import getQueryRecipes from '../utils/querys';
 
 const getAllCategories = async (url: EndpointRequest) => {
   let query;
@@ -15,9 +16,9 @@ const getAllCategories = async (url: EndpointRequest) => {
 const getByCategory = async (url: EndpointRequest, q: string) => {
   let query;
   if (url === '/drinks') {
-    query = 'SELECT * FROM drinks_categories WHERE name = ?'
+    query = getQueryRecipes.getDrinkByCategory;
   } else {
-    query = 'SELECT * FROM meals_categories WHERE name = ?'
+    query = getQueryRecipes.getMealByCategory;
   }
   const [category] = await connection.execute(query, [q]);
   return category;

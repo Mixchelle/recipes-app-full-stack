@@ -21,8 +21,22 @@ JOIN meals_recipes_ingredients as ri ON mr.id = ri.recipe_id
 JOIN meals_ingredients as mi ON mi.id = ri.ingredient_id
 WHERE ma.name = ? GROUP BY mr.id`;
 
+const getDrinkByCategory = `SELECT dr.id, dr.name, dr.image
+FROM drinks_recipes AS dr
+INNER JOIN drinks_categories AS dc
+ON dc.id = dr.category_id
+WHERE dc.name = ?`;
+
+const getMealByCategory = `SELECT mr.id, mr.name, mr.image
+FROM meals_recipes AS mr
+INNER JOIN meals_categories AS mc
+ON mc.id = mr.category_id
+WHERE mc.name = ?`;
+
 export default {
   getRecipesDrinks,
   getRecipesMeals,
   getRecipeByArea,
+  getDrinkByCategory,
+  getMealByCategory,
 };

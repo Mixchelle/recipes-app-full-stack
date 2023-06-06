@@ -6,9 +6,7 @@ export default function useFetch() {
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchAPI = async (url) => {
-    console.log('URL:', url);
     const response = await fetch(url);
-    console.log('Response:', response);
     const json = await response.json();
   
     return json;

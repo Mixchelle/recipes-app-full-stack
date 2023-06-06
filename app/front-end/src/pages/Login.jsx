@@ -22,7 +22,7 @@ function Login({ history }) {
     validateBtn(loginData);
   }, [loginData, validateBtn]);
 
-  // useEffect(() => { console.log(test.current.value); }, [test]);
+
   const handleSubmit = useCallback((e) => {
     e.preventDefault();
     saveToLocalStorage(loginData.email);

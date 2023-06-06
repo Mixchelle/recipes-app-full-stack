@@ -27,7 +27,6 @@ function RecipeDetails() {
   const [copied, setCopied] = useState(false);
   const { toggleFavorite } = useFavorite();
   const {
-    ingredients,
     recommended,
     getPageInfo,
     done,
@@ -63,7 +62,7 @@ function RecipeDetails() {
 
     toggleFavorite(recipe[0]);
   }, [favorite, recipe, toggleFavorite]);
-  console.log('RECEITA', recipe);
+
   return (
     <>
       { recipe.map(({

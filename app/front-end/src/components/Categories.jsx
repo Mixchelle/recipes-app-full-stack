@@ -35,7 +35,6 @@ export default function Categories() {
       // const FIVE = 6;
       const categoriesNew = categories.map(({name}) => ({name}));
       categoriesNew.splice(0, 0, { name: 'All' });
-      console.log(categoriesNew);
       setCategories(categoriesNew.slice(0, 5));
     };
     setCategoriesList();

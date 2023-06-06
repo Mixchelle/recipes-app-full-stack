@@ -26,7 +26,6 @@ function RecipesProvider({ children }) {
     // const getValidIngredients = (str) => Object.entries(recipe[0])
     //   .filter((entry) => entry[0].includes(str))
     //   .filter((entry) => entry[1]);
-
     const ingredientsArray = () => {
       // const measure = getValidIngredients('strMeasure');
       // const ingredient = getValidIngredients('strIngredient');
@@ -47,7 +46,6 @@ function RecipesProvider({ children }) {
     if (!inProgressRecipes[page]) inProgressRecipes[page] = {};
 
     let newIngredients = ingredientsArray();
-    // console.log(inProgressRecipes[page][id])
     if (inProgressRecipes[page][id]) {
       newIngredients = newIngredients
         .map((ingredient) => ({
@@ -58,13 +56,11 @@ function RecipesProvider({ children }) {
     }
 
     setIngredients(newIngredients);
-  }, [id, page, recipe]);
+  }, [recipe]);
 
   useEffect(() => {
     const getRecipe = async () => {
       if (!page) return;
-      console.log('PAGE', page)
-      console.log('ERROR: ', page, id)
       const data = await fetchRecipe(page === 'drinks' ? 'drinks' : 'meals', id);
 
       setRecipe(data);
