@@ -3,7 +3,9 @@ import React, { createContext, useMemo, useState, useCallback } from 'react';
 import useFetch from '../hooks/useFetch';
 import useFilterRecipes from '../hooks/useFilterRecipes';
 
+
 export default function AppProvider({ children }) {
+
   const [searchData, setSearchData] = useState([]);
   const { fetchData, fetchCategories, isLoading, setIsLoading } = useFetch();
 
@@ -25,10 +27,17 @@ export default function AppProvider({ children }) {
 
   const handleUnfavorite = useCallback(({ target: { id } }) => {
     const savedRecipes = JSON.parse(localStorage.favoriteRecipes);
-    const newFavorites = savedRecipes.filter((recipe) => recipe.id !== id);
+    const newFavorites = savedRecipes.filter((recipe) => recipe.id !== parseInt(id));
+
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-    setFavRecipes(filterRecipes('all', 'fav'));
+    console.log('save', savedRecipes, 'new,', newFavorites)
+    console.log('click');
+    const updatedFavorites = filterRecipes('all', 'fav'); // Atualiza a lista de favoritos
+    setFavRecipes(updatedFavorites);
+  //  window.location.reload(); // Recarregar a página
   }, [filterRecipes]);
+  
+  
 
   const values = useMemo(() => ({
     fetchData,

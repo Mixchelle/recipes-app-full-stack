@@ -18,9 +18,9 @@ function SearchBar() {
   const pageName = useCallback(() => {
     switch (location.pathname) {
     case '/meals':
-      return 'meal';
+      return 'meals';
     default: // /drinks
-      return 'cocktail';
+      return 'drinks';
     }
   }, [location.pathname]);
 
